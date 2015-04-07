@@ -1,8 +1,6 @@
 #ifndef __QUEUE_H__
 #define __QUEUE_H__
 
-/* Modificar la clase para que acepte int, float, double, punteros a lo que sea... */
-
 template <class TYPE>
 struct simpleNode {
 	TYPE value;
@@ -37,10 +35,12 @@ public:
 	}
 
 	void push(TYPE new_value) {
+
 		// A new simpleNode is being created.
 		simpleNode<TYPE>* new_node = new simpleNode<TYPE>;
 		new_node->value = new_value;
 		new_node->next = NULL;
+
 		// Once done, has to be added to the list.
 		if (start != NULL) {
 			simpleNode<TYPE> *tmp = start;
@@ -140,4 +140,4 @@ public:
 
 };
 
-#endif __Queue_H__
+#endif __QUEUE_H__
