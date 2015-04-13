@@ -4,7 +4,7 @@
 template <class TYPE>
 struct queue_node
 {
-	TYPE *data;
+	TYPE data;
 	queue_node *next;
 };
 
@@ -12,7 +12,7 @@ template<class TYPE>
 class Queue
 {
 private:
-	queue_node *start;
+	queue_node<TYPE> *start;
 
 public:
 	 
@@ -22,10 +22,7 @@ public:
 	}
 
 	~Queue<TYPE>()
-	{
-		if (data != NULL)
-			delete start;
-	}
+	{ }
 
 	void push(TYPE new_value)
 	{
@@ -36,26 +33,25 @@ public:
 		if (start != NULL)
 		{
 			queue_node<TYPE> *tmp = start;
-			while (tmp != NULL)
+			while (tmp->next != NULL)
 				tmp = tmp->next;
-			tmp = new_node;
+			tmp->next = new_node;
 		}
-
-		start = new_node;
+		else
+			start = new_node;
 	}
 
-	bool pop(const TYPE &data_returned)
+	bool pop(TYPE &data_returned)
 	{
 		if (start != NULL)
 		{
-			doubleNode<TYPE> node_to_delete = start;
-			data_returned = node_to_delete->data;
+			data_returned = start->data;
+			queue_node<TYPE> *node_to_delete = start;
 
-			if (tmp->next != NULL)
-				start = tmp->next;
+			if (start->next != NULL)
+				start = start->next;
 			else
 				start = NULL;
-			
 			delete node_to_delete;
 
 			return true;
@@ -63,6 +59,36 @@ public:
 		return false;
 	}
 
+	const TYPE &peek(unsigned int position) const
+	{
+		if (start != NULL)
+		{
+			unsigned int counter = 0;
+			queue_node<TYPE> *tmp = start;
+			while (counter != position)
+			{
+				tmp = tmp->next;
+				counter++;
+			}
+			return tmp->data;
+		}
+		return -1;
+	}
+
+	unsigned int count() const
+	{
+		unsigned int num_elements = 0;
+		if (start != NULL)
+		{
+			queue_node<TYPE> *tmp = start;
+			while (tmp != NULL)
+			{
+				num_elements++;
+				tmp = tmp->next;
+			}
+		}
+		return num_elements;
+	}
 };
 
 #endif //!__QUEUE_H__

@@ -2,6 +2,7 @@
 #include "CppUnitTest.h"
 #include "../Stack.h"
 #include "../Queue.h"
+#include "../Trees.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
@@ -59,14 +60,25 @@ namespace UnitTest1
 			s.push(2);
 			s.push(3);
 
-			//Assert::AreEqual(s.peek(2), 3);
+			Assert::AreEqual(s.peek(0), 1);
+			Assert::AreEqual(s.peek(1), 2);
+			Assert::AreEqual(s.peek(2), 3);
 
-			int ret1;
-			Assert::IsTrue(s.pop(ret1));
-			Assert::AreEqual(ret1, 1);
-			/*Assert::AreEqual(s.pop(), 1);
-			Assert::AreEqual(s.pop(), 2);
-			Assert::AreEqual(s.pop(), 3);*/
+			int ret;
+			Assert::IsTrue(s.pop(ret));
+			Assert::AreEqual(ret, 1);
+			Assert::IsTrue(s.pop(ret));
+			Assert::AreEqual(ret, 2);
+			Assert::IsTrue(s.pop(ret));
+			Assert::AreEqual(ret, 3);
+			Assert::IsFalse(s.pop(ret));
+			Assert::AreEqual(ret, 3);
+		}
+		TEST_METHOD(TreesGeneralTest)
+		{
+			Trees<int> tree(88);
+
+			tree.add(99);
 		}
 
 	};
