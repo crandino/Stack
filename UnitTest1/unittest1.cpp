@@ -49,42 +49,25 @@ namespace UnitTest1
 			Assert::AreEqual(s0.pop(), 1.0f);
 			Assert::AreEqual(s0.pop(), -1.0f);
 
-
-
-
 		}
+		TEST_METHOD(QueueGeneralTest)
+		{
+			// We test various codes.
+			Queue<int> s;
 
-		//TEST_METHOD(StackGeneralTest)
-		//{
-		//	// We test various codes.
-		//	Stack<int> s(5);
+			s.push(1);
+			s.push(2);
+			s.push(3);
 
-		//	s.push(1);
-		//	s.push(2);
-		//	s.push(3);
+			//Assert::AreEqual(s.peek(2), 3);
 
-		//	Assert::AreEqual(s.peek(2), 3);
-
-		//	Assert::AreEqual(s.pop(), 3);
-		//	Assert::AreEqual(s.pop(), 2);
-		//	Assert::AreEqual(s.pop(), 1);
-		//}
-
-		//TEST_METHOD(QueueGeneralTest)
-		//{
-		//	// We test various codes.
-		//	Queue<int> s;
-
-		//	s.push(1);
-		//	s.push(2);
-		//	s.push(3);
-
-		//	Assert::AreEqual(s.peek(2), 3);
-
-		//	Assert::AreEqual(s.pop(), 1);
-		//	Assert::AreEqual(s.pop(), 2);
-		//	Assert::AreEqual(s.pop(), 3);
-		//}
+			int ret1;
+			Assert::IsTrue(s.pop(ret1));
+			Assert::AreEqual(ret1, 1);
+			/*Assert::AreEqual(s.pop(), 1);
+			Assert::AreEqual(s.pop(), 2);
+			Assert::AreEqual(s.pop(), 3);*/
+		}
 
 	};
 }
