@@ -4,6 +4,26 @@
 
 int main(int argc, char **argv)
 {
+	/* TREE
+	      F
+		 / \
+	    B   G
+       / \   \
+	  A   D   I
+	     / \   \
+        C   E   H
+	*/
+
+	Trees<char> t('F');
+	tree_node<char> *b = t.add('B');
+	t.add('A', b);
+	tree_node<char> *d = t.add('D', b);
+	t.add('C', d);
+	t.add('E', d);
+	tree_node<char> *g = t.add('G');
+	tree_node<char> *i = t.add('G', g);
+	tree_node<char> *h = t.add('G', i);
+	
 	getchar();
 
 	return 0;
