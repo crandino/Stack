@@ -2,49 +2,82 @@
 #define __TREES_H__
 
 #include "DList.h"
+#include "Stack.h"
 
-template<class TYPE>
+template<class TREEDATA>
 struct tree_node
 {
-	TYPE data;
-	tree_node<TYPE> *parent;
+	TREEDATA data;
+	tree_node<TREEDATA> *parent;
 	DList<tree_node*> children;
 
-	tree_node<TYPE>(const TYPE &new_data)
+	tree_node<TREEDATA>(const TREEDATA &new_data)
 	{
 		data = new_data;
 		parent = NULL;
 	}
 
-	void visitAll(DList<TYPE> *list) const
+	void preOrderRecursive(DList<tree_node<TREEDATA>*> *list) 
 	{
-		list->add(data);
+		list->add(this);
 		printf("%c", data);
 
-		doubleNode<TYPE> *tmp = children.getFirst();
+		doubleNode<tree_node*> *item = children.getFirst();
+
+		for (; item != NULL; item = item->next)
+		{
+			item->value->preOrderRecursive(list);
+		}		
+	}
+
+	void postOrderRecursive(DList<tree_node<TREEDATA>*> *list) 
+	{
+		doubleNode<tree_node*> *item = children.getFirst();
+
+		for (; item != NULL; item = item->next)
+		{
+			item->value->postOrderRecursive(list);
+		}
+
+		list->add(this);
+		printf("%c", data);
+	}
+
+	void inOrderRecursive(DList<tree_node<TREEDATA>*> *list) 
+	{
+		doubleNode<tree_node*> *item = children.getFirst();
+
+		if (item != NULL)
+			item->value->inOrderRecursive(list);
 		
+		list->add(this);
+		printf("%c", data);
+
+		if (item != NULL && item->next != NULL)
+			item->next->value->inOrderRecursive(list);
+
 	}
 };
 
-template <class TYPE> 
+template <class TREEDATA> 
 class Trees
 {
 
 private:
 
-	tree_node<TYPE> root_node;
+	tree_node<TREEDATA> root_node;
 
 public:
 
-	Trees<TYPE>(const TYPE &new_value) : root_node(new_value)
+	Trees<TREEDATA>(const TREEDATA &new_value) : root_node(new_value)
 	{ }
 
-	virtual ~Trees<TYPE>()
+	virtual ~Trees<TREEDATA>()
 	{ }
 	
-	tree_node<TYPE> *add(const TYPE &new_value)
+	tree_node<TREEDATA> *add(const TREEDATA &new_value)
 	{
-		tree_node<TYPE> *new_node = new tree_node<TYPE>(new_value);
+		tree_node<TREEDATA> *new_node = new tree_node<TREEDATA>(new_value);
 		
 		new_node->parent = &root_node;
 		root_node.children.add(new_node);
@@ -52,9 +85,9 @@ public:
 		return new_node;
 	}
 
-	tree_node<TYPE> *add(const TYPE &new_value, tree_node<TYPE> *parent)
+	tree_node<TREEDATA> *add(const TREEDATA &new_value, tree_node<TREEDATA> *parent)
 	{
-		tree_node<TYPE> *new_node = new tree_node<TYPE>(new_value);
+		tree_node<TREEDATA> *new_node = new tree_node<TREEDATA>(new_value);
 	
 		new_node->parent = parent;
 		parent->children.add(new_node);
@@ -62,9 +95,42 @@ public:
 		return new_node;
 	}
 
-	void visitAllNodes(DList<TYPE> *list) const
+	void preOrderRecursive(DList<tree_node<TREEDATA>*> *list) 
 	{
-		root_node.visitAll(list);
+		root_node.preOrderRecursive(list);
+	}
+
+	void preOrderIterative(DList<tree_node<TREEDATA>*> *list) 
+	{
+		Stack<tree_node<TREEDATA>*> tmp_stack(64);
+		list->add(&root_node);
+		printf("%c", root_node.data);
+		Stack.push(root_node);
+
+		doubleNode<tree_node<TREEDATA>*> *node = root_node.children.getFirst();
+		while (tmp_stack.count() > 0)
+		{
+			node = node->value->children.getFirst();
+			if (node != NULL)
+			{
+				list->add(node->&value);
+				Stack.push(node);
+			}
+			else
+				Stack.pop();	
+		}
+
+		tmp_stack.pop();
+	}
+
+	void postOrderRecursive(DList<tree_node<TREEDATA>*> *list) 
+	{
+		root_node.postOrderRecursive(list);
+	}
+
+	void inOrderRecursive(DList<tree_node<TREEDATA>*> *list)
+	{
+		root_node.inOrderRecursive(list);
 	}
 
 };

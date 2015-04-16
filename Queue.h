@@ -1,38 +1,38 @@
 #ifndef __QUEUE_H__
 #define __QUEUE_H__
 
-template <class TYPE>
+template <class TREEDATA>
 struct queue_node
 {
-	TYPE data;
+	TREEDATA data;
 	queue_node *next;
 };
 
-template<class TYPE>
+template<class TREEDATA>
 class Queue
 {
 private:
-	queue_node<TYPE> *start;
+	queue_node<TREEDATA> *start;
 
 public:
 	 
-	Queue<TYPE>()
+	Queue<TREEDATA>()
 	{
 		start = NULL;
 	}
 
-	~Queue<TYPE>()
+	~Queue<TREEDATA>()
 	{ }
 
-	void push(TYPE new_value)
+	void push(TREEDATA new_value)
 	{
-		queue_node<TYPE> *new_node = new queue_node<TYPE>;
+		queue_node<TREEDATA> *new_node = new queue_node<TREEDATA>;
 		new_node->data = new_value;
 		new_node->next = NULL;
 
 		if (start != NULL)
 		{
-			queue_node<TYPE> *tmp = start;
+			queue_node<TREEDATA> *tmp = start;
 			while (tmp->next != NULL)
 				tmp = tmp->next;
 			tmp->next = new_node;
@@ -41,12 +41,12 @@ public:
 			start = new_node;
 	}
 
-	bool pop(TYPE &data_returned)
+	bool pop(TREEDATA &data_returned)
 	{
 		if (start != NULL)
 		{
 			data_returned = start->data;
-			queue_node<TYPE> *node_to_delete = start;
+			queue_node<TREEDATA> *node_to_delete = start;
 
 			if (start->next != NULL)
 				start = start->next;
@@ -59,12 +59,12 @@ public:
 		return false;
 	}
 
-	const TYPE &peek(unsigned int position) const
+	const TREEDATA &peek(unsigned int position) const
 	{
 		if (start != NULL)
 		{
 			unsigned int counter = 0;
-			queue_node<TYPE> *tmp = start;
+			queue_node<TREEDATA> *tmp = start;
 			while (counter != position)
 			{
 				tmp = tmp->next;
@@ -80,7 +80,7 @@ public:
 		unsigned int num_elements = 0;
 		if (start != NULL)
 		{
-			queue_node<TYPE> *tmp = start;
+			queue_node<TREEDATA> *tmp = start;
 			while (tmp != NULL)
 			{
 				num_elements++;
@@ -93,18 +93,18 @@ public:
 
 #endif //!__QUEUE_H__
 
-//template <class TYPE>
+//template <class TREEDATA>
 //struct simpleNode {
-//	TYPE value;
-//	simpleNode<TYPE>* next;
-//	simpleNode<TYPE>* previous;
+//	TREEDATA value;
+//	simpleNode<TREEDATA>* next;
+//	simpleNode<TREEDATA>* previous;
 //};
 //
-//template <class TYPE>
+//template <class TREEDATA>
 //class Queue {
 //
 //private:
-//	simpleNode<TYPE>* start;
+//	simpleNode<TREEDATA>* start;
 //
 //public:
 //
@@ -118,7 +118,7 @@ public:
 //
 //	unsigned int count() const {
 //		unsigned int counter = 0;
-//		simpleNode<TYPE>* tmp = start;
+//		simpleNode<TREEDATA>* tmp = start;
 //		while (tmp != NULL) {
 //			tmp = tmp->next;
 //			counter++;
@@ -126,16 +126,16 @@ public:
 //		return counter;
 //	}
 //
-//	void push(TYPE new_value) {
+//	void push(TREEDATA new_value) {
 //
 //		// A new simpleNode is being created.
-//		simpleNode<TYPE>* new_node = new simpleNode<TYPE>;
+//		simpleNode<TREEDATA>* new_node = new simpleNode<TREEDATA>;
 //		new_node->value = new_value;
 //		new_node->next = NULL;
 //
 //		// Once done, has to be added to the list.
 //		if (start != NULL) {
-//			simpleNode<TYPE> *tmp = start;
+//			simpleNode<TREEDATA> *tmp = start;
 //			while (tmp->next != NULL)
 //				tmp = tmp->next;
 //			tmp->next = new_node;
@@ -144,12 +144,12 @@ public:
 //			start = new_node;
 //	}
 //
-//	TYPE pop()
+//	TREEDATA pop()
 //	{
-//		TYPE ret = -1;
+//		TREEDATA ret = -1;
 //		if (start != NULL)
 //		{
-//			simpleNode<TYPE>* node_to_delete = start;
+//			simpleNode<TREEDATA>* node_to_delete = start;
 //			if (start->next != NULL)
 //				start = start->next;
 //			else
@@ -160,12 +160,12 @@ public:
 //		return ret;
 //	}
 //
-//	simpleNode<TYPE>* getNodeAtPos(unsigned int position) const
+//	simpleNode<TREEDATA>* getNodeAtPos(unsigned int position) const
 //	{
 //		// Node 1 is zero, node 2 is one, etc.
 //		if (start != NULL && position < count())
 //		{
-//			simpleNode<TYPE>* tmp = start;
+//			simpleNode<TREEDATA>* tmp = start;
 //			int pos_counter = 0;
 //			while (pos_counter != position)
 //			{
@@ -178,12 +178,12 @@ public:
 //			return NULL;
 //	}
 //
-//	const TYPE& peek(unsigned int position) const
+//	const TREEDATA& peek(unsigned int position) const
 //	{
 //		return getNodeAtPos(position)->value;
 //	}
 //
-//	bool del(simpleNode<TYPE>* node_to_erase) {
+//	bool del(simpleNode<TREEDATA>* node_to_erase) {
 //
 //		// Si el nodo no existe, petará.
 //		// Puede mejorarse añadiendo un booleano que indique error o no.
@@ -192,7 +192,7 @@ public:
 //		{
 //			if (node_to_erase != start)
 //			{
-//				simpleNode<TYPE> *tmp = start;
+//				simpleNode<TREEDATA> *tmp = start;
 //				while (tmp->next != node_to_erase)
 //				{
 //					if (tmp->next == NULL)
@@ -219,7 +219,7 @@ public:
 //		{
 //			while (start->next != NULL)
 //			{
-//				simpleNode<TYPE>* node_to_delete = start;
+//				simpleNode<TREEDATA>* node_to_delete = start;
 //				start = start->next;
 //				delete node_to_delete;
 //			}

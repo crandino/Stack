@@ -23,11 +23,26 @@ int main(int argc, char **argv)
 	t.add('C', d);
 	t.add('E', d);
 	tree_node<char> *g = t.add('G');
-	tree_node<char> *i = t.add('G', g);
-	tree_node<char> *h = t.add('G', i);
+	tree_node<char> *i = t.add('I', g);
+	tree_node<char> *h = t.add('H', i);
 
-	DList<char> list_preorder;
-	t.visitAllNodes(&list_preorder);
+
+	DList<tree_node<char>*> list_preorder_rec;
+	t.preOrderRecursive(&list_preorder_rec);
+	printf("%s\n", "");
+
+	DList<tree_node<char>*> list_postorder_rec;
+	t.postOrderRecursive(&list_postorder_rec);
+	printf("%s\n", "");
+
+	DList<tree_node<char>*> list_inorder_rec;
+	t.inOrderRecursive(&list_inorder_rec);
+	printf("%s\n", "");
+
+	DList<tree_node<char>*> list_preorder_ite;
+	t.preOrderIterative(&list_preorder_ite);
+	printf("%s\n", "");
+
 	
 	getchar();
 
