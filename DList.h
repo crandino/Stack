@@ -124,7 +124,7 @@ public:
 		return false;
 	}
 
-	doubleNode<TYPE>* getFirst() const 
+	doubleNode<TYPE> *getFirst() const 
 	{
 		return start;
 	}

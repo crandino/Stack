@@ -4,7 +4,9 @@
 
 int main(int argc, char **argv)
 {
-	/* TREE
+	/* 
+	    TREE
+
 	      F
 		 / \
 	    B   G
@@ -23,6 +25,9 @@ int main(int argc, char **argv)
 	tree_node<char> *g = t.add('G');
 	tree_node<char> *i = t.add('G', g);
 	tree_node<char> *h = t.add('G', i);
+
+	DList<char> list_preorder;
+	t.visitAllNodes(&list_preorder);
 	
 	getchar();
 
