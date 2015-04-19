@@ -3,6 +3,7 @@
 
 #include "DList.h"
 #include "Stack.h"
+#include <math.h>
 
 template<class TREEDATA>
 struct tree_node
@@ -34,7 +35,7 @@ struct tree_node
 	{
 		doubleNode<tree_node*> *item = children.getFirst();
 
-		for (; item != NULL; item = item->next)
+		for (item ; item != NULL; item = item->next)
 		{
 			item->value->postOrderRecursive(list);
 		}
@@ -45,17 +46,23 @@ struct tree_node
 
 	void inOrderRecursive(DList<tree_node<TREEDATA>*> *list) 
 	{
+		unsigned int middle = ceil( (float) children.count() / 2.0f );
+
 		doubleNode<tree_node*> *item = children.getFirst();
 
-		if (item != NULL)
+		for (unsigned int i = 0; i < middle; i++)
+		{
 			item->value->inOrderRecursive(list);
-		
+			item = item->next;
+		}
+
 		list->add(this);
 		printf("%c", data);
 
-		if (item != NULL && item->next != NULL)
-			item->next->value->inOrderRecursive(list);
-
+		for (; item != NULL; item = item->next)
+		{
+			item->value->inOrderRecursive(list);
+		}
 	}
 };
 
@@ -100,28 +107,48 @@ public:
 		root_node.preOrderRecursive(list);
 	}
 
-	void preOrderIterative(DList<tree_node<TREEDATA>*> *list) 
+	void preOrderIterative(DList<tree_node<TREEDATA>*> *list)
 	{
-		Stack<tree_node<TREEDATA>*> tmp_stack(64);
-		list->add(&root_node);
-		printf("%c", root_node.data);
-		Stack.push(root_node);
-
-		doubleNode<tree_node<TREEDATA>*> *node = root_node.children.getFirst();
-		while (tmp_stack.count() > 0)
+		Stack<tree_node<TREEDATA>*> s;
+		tree_node<TREEDATA> *node = &root_node;
+		
+		while (s.pop(node) == true || node != NULL)
 		{
-			node = node->value->children.getFirst();
-			if (node != NULL)
-			{
-				list->add(node->&value);
-				Stack.push(node);
-			}
-			else
-				Stack.pop();	
-		}
+			list->add(node);
+			printf("%c", node->data);
 
-		tmp_stack.pop();
+			doubleNode<tree_node<TREEDATA>*> *item = node->children.getLast();
+			while (item != NULL)
+			{
+				s.push(item->value);
+				item = item->previous;
+			}
+
+			node = NULL;
+		}
 	}
+
+	void postOrderIterative(DList<tree_node<TREEDATA>*> *list)
+	{
+		Stack<tree_node<TREEDATA>*> s;
+		tree_node<TREEDATA> *node = &root_node;
+
+		while (s.pop(node) == true || node != NULL)
+		{
+			list->add(node);
+			printf("%c", node->data);
+
+			doubleNode<tree_node<TREEDATA>*> *item = node->children.getLast();
+			while (item != NULL)
+			{
+				s.push(item->value);
+				item = item->previous;
+			}
+
+			node = NULL;
+		}
+	}
+
 
 	void postOrderRecursive(DList<tree_node<TREEDATA>*> *list) 
 	{

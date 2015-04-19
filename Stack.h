@@ -71,13 +71,14 @@ public:
 		num_elements++;
 	}
 
-	TYPE pop()
+	bool pop(TYPE &value)
 	{
-		TYPE ret = -1;
 		if (data != NULL && num_elements > 0)
-			ret = data[--num_elements];
-		
-		return ret;
+		{
+			value = data[--num_elements];
+			return true;
+		}
+		return false;
 	}
 
 	const TYPE &peek(unsigned int position) const

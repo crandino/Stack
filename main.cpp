@@ -43,6 +43,11 @@ int main(int argc, char **argv)
 	t.preOrderIterative(&list_preorder_ite);
 	printf("%s\n", "");
 
+	DList<tree_node<char>*> list_postorder_ite;
+	t.preOrderIterative(&list_postorder_ite);
+	printf("%s\n", "");
+
+
 	
 	getchar();
 
