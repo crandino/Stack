@@ -132,20 +132,27 @@ public:
 	{
 		Stack<tree_node<TREEDATA>*> s;
 		tree_node<TREEDATA> *node = &root_node;
+		s.push(node);
 
-		while (s.pop(node) == true || node != NULL)
+		while (node != NULL)
 		{
-			list->add(node);
-			printf("%c", node->data);
-
 			doubleNode<tree_node<TREEDATA>*> *item = node->children.getLast();
-			while (item != NULL)
+			if (item != NULL)
 			{
+				while (item->previous != NULL)
+				{
+					s.push(item->value);
+					item = item->previous;
+				}
 				s.push(item->value);
-				item = item->previous;
+				node = item->value;				
 			}
-
-			node = NULL;
+			else
+			{
+				list->add(node);
+				printf("%c", node->data);
+				s.pop(node);
+			}
 		}
 	}
 

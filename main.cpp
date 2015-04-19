@@ -44,7 +44,7 @@ int main(int argc, char **argv)
 	printf("%s\n", "");
 
 	DList<tree_node<char>*> list_postorder_ite;
-	t.preOrderIterative(&list_postorder_ite);
+	t.postOrderIterative(&list_postorder_ite);
 	printf("%s\n", "");
 
 
