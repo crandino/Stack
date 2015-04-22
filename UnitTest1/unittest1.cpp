@@ -83,38 +83,84 @@ namespace UnitTest1
 				s.push(i);
 
 			for (int i = 0; i < 100; i++)
-				Assert::AreEqual(s.peek(i), i);
+				Assert::AreEqual(*s.peek(i), i);
 		}
 
 		// ----------------------------
 		//            QUEUE
 		// -----------------------------
 
+		TEST_METHOD(QueuePush)
+		{
+			Queue<int> q;
 
-		//}
-		//TEST_METHOD(QueueGeneralTest)
-		//{
-		//	// We test various codes.
-		//	Queue<int> s;
+			for (int i = 0; i < 100; i++)
+				q.push(i);
 
-		//	s.push(1);
-		//	s.push(2);
-		//	s.push(3);
+			int ret;
+			for (int i = 0; i < 100; i++)
+			{
+				q.pop(ret);
+				Assert::AreEqual(ret, i);
+			}
 
-		//	Assert::AreEqual(s.peek(0), 1);
-		//	Assert::AreEqual(s.peek(1), 2);
-		//	Assert::AreEqual(s.peek(2), 3);
+			for (int i = 0; i < 100; i++)
+			{
+				q.pop(ret);
+				Assert::AreEqual(ret, 99);
+			}
+		}
 
-		//	int ret;
-		//	Assert::IsTrue(s.pop(ret));
-		//	Assert::AreEqual(ret, 1);
-		//	Assert::IsTrue(s.pop(ret));
-		//	Assert::AreEqual(ret, 2);
-		//	Assert::IsTrue(s.pop(ret));
-		//	Assert::AreEqual(ret, 3);
-		//	Assert::IsFalse(s.pop(ret));
-		//	Assert::AreEqual(ret, 3);
-		//}
+		TEST_METHOD(QueueCount)
+		{
+			Queue<int> q;
+
+			for (int i = 0; i < 100 ; i++)
+				q.push(i);
+
+			Assert::AreEqual(q.count(), (unsigned) 100);
+
+			int ret;
+			for (unsigned int i = 99; i > 0; i--)
+			{
+				q.pop(ret);
+				Assert::AreEqual(q.count(), i);
+			}
+
+			for (unsigned int i = 0; i < 10 ; i++)
+			{
+				q.pop(ret);
+				Assert::AreEqual(q.count(), (unsigned) 0);
+			}
+		}
+
+		TEST_METHOD(QueuePeek)
+		{
+			Queue<int> q;
+
+			for (int i = 0; i < 100; i++)
+				q.push(i);
+
+			for (int i = 0; i < 100; i++)
+				Assert::AreEqual(*(q.peek(i)), i);		
+		}
+
+		TEST_METHOD(QueueClear)
+		{
+			Queue<int> q;
+
+			for (int i = 0; i < 100; i++)
+				q.push(i);
+
+			Assert::AreEqual(q.count(), (unsigned) 100);
+
+			q.clear();
+
+			Assert::AreEqual(q.count(), (unsigned) 0);
+
+
+		}
+
 		//TEST_METHOD(TreesGeneralTest)
 		//{
 		//	Trees<int> tree(88);

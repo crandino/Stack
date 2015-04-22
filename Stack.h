@@ -1,6 +1,8 @@
 #ifndef __STACK_H__
 #define __STACK_H__
 
+#include <stdio.h>
+
 
 template<class TYPE>
 class Stack
@@ -69,7 +71,7 @@ public:
 		return false;
 	}
 
-	const TYPE &peek(unsigned int position) const
+	const TYPE *peek(unsigned int position) const
 	{
 		//Maybe it is not correct.
 
@@ -78,7 +80,7 @@ public:
 		if (data != NULL && position < num_elements)
 			ret = &data[position];
 
-		return *ret;
+		return ret;
 	}
 
 	void clear()

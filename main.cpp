@@ -2,6 +2,8 @@
 #include "Queue.h"
 #include "Trees.h"
 
+#include <stdio.h>
+
 int main(int argc, char **argv)
 {
 	///* 
@@ -47,9 +49,30 @@ int main(int argc, char **argv)
 	//t.postOrderIterative(&list_postorder_ite);
 	//printf("%s\n", "");
 
+	Stack<int> s(50);
 
-	//
-	//getchar();
+	for (int i = 0; i < 100; i++)
+		s.push(i);
+
+	for (int i = 0; i < 100; i++)
+		printf("%d\n", *s.peek(i));
+
+	Queue<int> q;
+
+	for (int i = 0; i < 100; i++)
+		q.push(i);
+
+	/*int ret;
+	for (int i = 0; i < 100; i++)
+	{
+		q.pop(ret);
+		printf("%d", ret);
+	}*/
+
+	for (int i = 0; i < 100; i++)
+		printf("%d\n", *q.peek(i));
+	
+	getchar();
 
 	return 0;
 }
