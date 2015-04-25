@@ -153,6 +153,21 @@ public:
 		return false;
 	}
 
+	bool isOnList(const doubleNode<TYPE> *node_to_check) const
+	{
+		if (start != NULL && node_to_check != NULL)
+		{
+			doubleNode<TYPE> *item = start;
+			while (item != NULL)
+			{
+				if (item->data == node_to_check->data)
+					return true;
+				item = item->next;
+			}
+		}
+		return false;
+	}
+
 	doubleNode<TYPE>* getFirst() const
 	{
 		return start;

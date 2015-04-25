@@ -28,7 +28,6 @@ int main(int argc, char **argv)
 	TreeNode<char> *i = t.addChild('I', g);
 	TreeNode<char> *h = t.addChild('H', i);
 
-
 	// Recursive
 
 	DList<TreeNode<char>*> list_preorder_rec;
@@ -49,9 +48,15 @@ int main(int argc, char **argv)
 	t.preOrderIterative(&list_preorder_ite);
 	printf("%s\n", "");
 
-	//DList<treeNode<char>*> list_postorder_ite;
-	//t.postOrderIterative(&list_postorder_ite);
-	//printf("%s\n", "");
+	DList<TreeNode<char>*> list_postorder_ite;
+	t.postOrderIterative(&list_postorder_ite);
+	printf("%s\n", "");
+
+	t.clear();
+
+	DList<TreeNode<char>*> list_preorder_rec_after_clear;
+	t.preOrderRecursive(&list_preorder_rec_after_clear);
+	printf("%s\n", "");
 	
 	getchar();
 

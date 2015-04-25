@@ -19,6 +19,14 @@ public:
 	TreeNode(const TREEDATA &new_data) : parent(NULL), data(new_data)
 	{ }
 
+	void clear()
+	{
+		doubleNode<TreeNode*> *tmp = children.getFirst();
+		for (; tmp != NULL; tmp = tmp->next)
+			tmp->data->clear();
+		delete this;
+	}
+
 	void preOrderRecursive(DList<TreeNode<TREEDATA>*> *list)
 	{
 		list->add(this);
@@ -41,7 +49,7 @@ public:
 
 	void inOrderRecursive(DList<TreeNode<TREEDATA>*> *list)
 	{
-		// Odd number of sons -> (x left) |(x+1 right)
+		// Odd number of sons -> (x left) | (x+1 right)
 		unsigned int middle = children.count() / 2;
 
 		doubleNode<TreeNode*> *tmp = children.getFirst();
@@ -91,6 +99,11 @@ public:
 		return new_tree_node;
 	}
 
+	void clear()
+	{
+		root.clear();
+	}
+
 	void preOrderRecursive(DList<TreeNode<TREEDATA>*> *list)
 	{
 		root.preOrderRecursive(list);
@@ -109,19 +122,44 @@ public:
 	void preOrderIterative(DList<TreeNode<TREEDATA>*> *list)
 	{
 		Stack<TreeNode<TREEDATA>*> stack;
-		stack.push(&root);
+		TreeNode<TREEDATA> *node = &root;
 
-		TreeNode<TREEDATA> *node;
-		while (stack.pop(node) == true)
+		while ( node != NULL || stack.pop(node) )
 		{
 			list->add(node);
 			printf("%c", node->data);
-			doubleNode<TreeNode<TREEDATA>*> *tmp = node->children.getLast();
-			for (; tmp != NULL; tmp = tmp->previous)
-				stack.push(tmp->data);
+			doubleNode<TreeNode<TREEDATA>*> *item = node->children.getLast();
+			for (; item != NULL; item = item->previous)
+				stack.push(item->data);
+
+			node = (item != NULL) ? item->data : NULL;
 		}
 	}
-	
+
+	void postOrderIterative(DList<TreeNode<TREEDATA>*> *list)
+	{
+		Stack<TreeNode<TREEDATA>*> stack;
+		TreeNode<TREEDATA> *node = &root;
+		stack.push(node);
+
+		while ( stack.pop(node) )
+		{
+			doubleNode<TreeNode<TREEDATA>*> *item = node->children.getLast();
+
+			if (item != NULL && !(list->isOnList(item)) )
+			{
+				stack.push(node);
+				for (; item != NULL; item = item->previous)
+					stack.push(item->data);
+			}
+			else
+			{
+				list->add(node);
+				printf("%c", node->data);
+			}
+		}
+	}
+
 };
 
 #endif //__TREES_H__
