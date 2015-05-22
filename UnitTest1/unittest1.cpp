@@ -161,12 +161,53 @@ namespace UnitTest1
 
 		}
 
-		//TEST_METHOD(TreesGeneralTest)
-		//{
-		//	Trees<int> tree(88);
+		// ----------------------------
+		//            QUEUE
+		// -----------------------------
 
-		//	tree.add(99);
-		//}
+		TEST_METHOD(Queue2Push)
+		{
+			Queue2<int> q;
+
+			for (int i = 0; i < 100; i++)
+				q.push(i);
+
+			int ret;
+			for (int i = 0; i < 100; i++)
+			{
+				q.pop(ret);
+				Assert::AreEqual(ret, i);
+			}
+
+			for (int i = 0; i < 100; i++)
+			{
+				q.pop(ret);
+				Assert::AreEqual(ret, 99);
+			}
+		}
+
+		TEST_METHOD(Queue2Count)
+		{
+			Queue2<int> q;
+
+			for (int i = 0; i < 100; i++)
+				q.push(i);
+
+			Assert::AreEqual(q.count(), (unsigned)100);
+
+			int ret;
+			for (unsigned int i = 99; i > 0; i--)
+			{
+				q.pop(ret);
+				Assert::AreEqual(q.count(), i);
+			}
+
+			for (unsigned int i = 0; i < 10; i++)
+			{
+				q.pop(ret);
+				Assert::AreEqual(q.count(), (unsigned)0);
+			}
+		}
 
 	};
 }

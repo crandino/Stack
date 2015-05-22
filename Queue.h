@@ -2,6 +2,7 @@
 #define __QUEUE_H__
 
 #include <stdio.h>
+#include "DynArray.h"
 
 template <class TYPE>
 struct QueueItem
@@ -115,7 +116,54 @@ public:
 	}
 };
 
+// Queue on Arrays...
+template <class TYPE>
+class Queue2
+{
 
+private:
 
+	DynArray<TYPE> data;
+
+public:
+
+	Queue2()
+	{ }
+
+	~Queue2()
+	{ }
+
+	void push(const TYPE &new_data)
+	{
+		data.pushBack(new_data);
+	}
+
+	bool pop(TYPE &result)
+	{
+		if (data.getNumElements() > 0)
+		{
+			// Potser el millor es fer un mètode delete de una posició determinada.
+			// I utilitzar-ho aquí dintre.
+			result = data[0];
+
+			for (unsigned int i = 0; i < data.getNumElements() - 1; i++)
+				data[i] = data[i + 1];
+
+			// Sobretot per això.
+			TYPE trash;
+			data.pop(trash);
+
+			return true;
+		}
+		else
+			return false;
+	}
+
+	unsigned int count() const
+	{
+		return data.getNumElements();
+	}
+	
+};
 
 #endif // __QUEUE_H__

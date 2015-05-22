@@ -100,4 +100,6 @@ public:
 
 };
 
+// Fer l'Stack amb doubleLlist!!
+
 #endif // __STACK_H__
